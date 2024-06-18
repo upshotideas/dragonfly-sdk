@@ -4,10 +4,10 @@ from typing import Any, Optional
 class DragonflyException(Exception):
     def __init__(self, message: str, *params: Any, e: Optional[Exception] = None) -> None:
         if e is None:
-            message = self.get_formatted_message(message, *params)
+            message = DragonflyException.get_formatted_message(message, *params)
             super().__init__(message)
         else:
-            message = self.get_formatted_message_with_exception(e, message, *params)
+            message = DragonflyException.get_formatted_message_with_exception(e, message, *params)
             super().__init__(message, e)
             self.original_exception = e
 
