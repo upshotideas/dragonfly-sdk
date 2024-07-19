@@ -1,8 +1,1 @@
-from uitl_dragonfly_sdk.DragonflyClient import DragonflyClient
-
-print("hello world!")
-
-client = DragonflyClient("cid", "sec", "https://auth.dragonflydatahq.com/realms/dragonfly", "api")
-output = client.run_health_report(1)
-
-print(output)
+print("Hm, this is not how you invoke the Dragonfly client. Please check the README for more details.")

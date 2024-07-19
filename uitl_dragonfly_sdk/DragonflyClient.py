@@ -1,31 +1,39 @@
+import json
+import os
 from typing import Dict, Any
 
 import requests
-import json
 
 from uitl_dragonfly_sdk.common.DragonflyException import DragonflyException
 from uitl_dragonfly_sdk.common.LowDcrException import LowDcrException
-from uitl_dragonfly_sdk.common.util import verify_mandatory_param, DRAGONFLY_API_HEALTH_REPORT_URL, DEFAULT_MIN_DCR
+from uitl_dragonfly_sdk.common.util import DRAGONFLY_API_HEALTH_REPORT_URL, DEFAULT_MIN_DCR, \
+    resolve_mandatory_param
 
 
 class DragonflyClient:
     def __init__(self: "DragonflyClient",
-                 client_id: str,
-                 client_secret: str,
-                 auth_server_realm_baseurl: str,
-                 api_server_baseurl: str) -> None:
+                 client_id: str = "",
+                 client_secret: str = "",
+                 auth_server_realm_baseurl: str = "",
+                 api_server_baseurl: str = "") -> None:
         self.access_token = None
 
-        verify_mandatory_param(client_id, "client_id")
-        verify_mandatory_param(client_secret, "client_secret")
-        verify_mandatory_param(auth_server_realm_baseurl, "auth_server_realm_baseurl")
-        verify_mandatory_param(api_server_baseurl, "api_server_baseurl")
+        client_id = resolve_mandatory_param(client_id, "UITL_DRAGONFLY_CLIENT_ID", "client_id")
+        client_secret = resolve_mandatory_param(client_secret, "UITL_DRAGONFLY_CLIENT_SECRET", "client_secret")
+        auth_server_realm_baseurl = resolve_mandatory_param(auth_server_realm_baseurl,
+                                                            "UITL_DRAGONFLY_AUTH_SERVER_REALM_BASEURL",
+                                                            "auth_server_realm_baseurl")
+        api_server_baseurl = resolve_mandatory_param(api_server_baseurl,
+                                                     "UITL_DRAGONFLY_API_SERVER_BASEURL",
+                                                     "api_server_baseurl")
 
         self.auth_server_url = f"{auth_server_realm_baseurl}/protocol/openid-connect/token"
         self.client_id = client_id
         self.client_secret = client_secret
         self.api_server_baseurl = api_server_baseurl
-        self._minimum_dcr = DEFAULT_MIN_DCR
+
+        env_min_dcr = os.getenv("UITL_DRAGONFLY_MINIMUM_DCR")
+        self._minimum_dcr = float(env_min_dcr) if env_min_dcr is not None else DEFAULT_MIN_DCR
 
         self.get_new_access_token()
 
