@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "uitl-dragonfly-sdk"
 version = "0.1.0"
-description = "Health check execution SDK for the Dragonfly, The Data Quality Tool by Upshot Ideas Technology Lab LLP."
+description = "Health check execution SDK for 'Dragonfly, The Data Quality Monitoring Tool' from Upshot Ideas Technology Lab."
 authors = ["NikhilWanpal <nikhil@upshotideas.com>"]
 license = "MIT"
 readme = "README.md"
