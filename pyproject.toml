@@ -1,15 +1,15 @@
 [tool.poetry]
 name = "uitl-dragonfly-sdk"
-version = "0.1.0"
+version = "0.1.1"
 description = "Health check execution SDK for 'Dragonfly, The Data Quality Monitoring Tool' from Upshot Ideas Technology Lab."
-authors = ["NikhilWanpal <nikhil@upshotideas.com>"]
+authors = ["NikhilWanpal <hello@upshotideas.com>"]
 license = "MIT"
 readme = "README.md"
 packages = [{include = "uitl_dragonfly_sdk"}]
 
 [tool.poetry.dependencies]
 python = "^3.8"
-requests = "^2.32.3"
+requests = "2.32.3"
 
 [tool.poetry.group.dev.dependencies]
 mypy = "1.10.0"
